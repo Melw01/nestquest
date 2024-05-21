@@ -51,4 +51,11 @@ public class UserServiceImpl implements UserService {
         User updatedUserObj = repository.save(user);
         return DtoMapper.mapToDto(updatedUserObj);
     }
+
+    @Override
+    public void deleteUser(Long id) {
+        repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(String.format("User id %d does not exist", id)));
+        repository.deleteById(id);
+
+    }
 }
