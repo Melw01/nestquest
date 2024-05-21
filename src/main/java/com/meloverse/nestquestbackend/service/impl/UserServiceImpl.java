@@ -37,4 +37,18 @@ public class UserServiceImpl implements UserService {
         List<User> users = repository.findAll();
         return users.stream().map(DtoMapper::mapToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public UserDto updateUser(Long id, UserDto updatedUser) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("User id %d does not exist", id)));
+
+        user.setFirstName(updatedUser.getFirstName());
+        user.setLastName(updatedUser.getLastName());
+        user.setEmail(updatedUser.getEmail());
+        user.setPhoneNumber(updatedUser.getPhoneNumber());
+
+        User updatedUserObj = repository.save(user);
+        return DtoMapper.mapToDto(updatedUserObj);
+    }
 }

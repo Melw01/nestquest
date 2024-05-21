@@ -1,7 +1,6 @@
 package com.meloverse.nestquestbackend.controller;
 
 import com.meloverse.nestquestbackend.dto.UserDto;
-import com.meloverse.nestquestbackend.exception.ResourceNotFoundException;
 import com.meloverse.nestquestbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +34,11 @@ public class UserController {
         return ResponseEntity.ok(userDtos);
     }
 
-
+    @PutMapping("{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long id,
+                                              @RequestBody UserDto updatedUserDto) {
+        UserDto userDto = userService.updateUser(id, updatedUserDto);
+        return ResponseEntity.ok(userDto);
+    }
 
 }
