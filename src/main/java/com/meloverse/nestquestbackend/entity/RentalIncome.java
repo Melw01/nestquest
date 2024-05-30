@@ -11,16 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "rental_income")
+public class RentalIncome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String username;
-    private String password;
-    private List<Property> properties;
+    private Float monthlyRent;
+    private Float vacancyRate;
 }

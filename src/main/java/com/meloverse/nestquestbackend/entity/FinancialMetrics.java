@@ -5,22 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "financial_metrics")
+public class FinancialMetrics {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String username;
-    private String password;
-    private List<Property> properties;
+    private Float cashFlow; // monthly cash flow
+    private Float capRate; // capitalization rate
+    private Float roi; // return on investment
+    private Float cocRoi; // cash-on-cash return on investment
 }

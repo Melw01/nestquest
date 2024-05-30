@@ -1,26 +1,23 @@
 package com.meloverse.nestquestbackend.entity;
 
+import com.meloverse.nestquestbackend.entity.enums.ExpenseType;
+import com.meloverse.nestquestbackend.entity.enums.Frequency;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "expense")
+public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phoneNumber;
-    private String username;
-    private String password;
-    private List<Property> properties;
+    private ExpenseType expenseType;
+    private Float amount;
+    private Frequency frequency;
+    private Boolean isRecurring;
 }
