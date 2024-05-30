@@ -1,40 +1,39 @@
 package com.meloverse.nestquestbackend.mapper;
 
+import com.meloverse.nestquestbackend.dto.ClientDto;
 import com.meloverse.nestquestbackend.dto.PropertyDto;
-import com.meloverse.nestquestbackend.dto.UserDto;
+import com.meloverse.nestquestbackend.entity.Client;
 import com.meloverse.nestquestbackend.entity.Property;
-import com.meloverse.nestquestbackend.entity.User;
 
 public class DtoMapper {
-    public static UserDto mapToDto(User user) {
-        if (user == null) {
+    public static ClientDto mapToDto(Client client) {
+        if (client == null) {
             return null;
         }
-        return new UserDto(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPhoneNumber(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getProperties()
+        return new ClientDto(
+                client.getId(),
+                client.getFirstName(),
+                client.getLastName(),
+                client.getEmail(),
+                client.getPhoneNumber(),
+                client.getUsername(),
+                client.getPassword(),
+                null
         );
     }
 
-    public static User mapFromDto(UserDto userDto) {
-        if (userDto == null) {
+    public static Client mapFromDto(ClientDto clientDto) {
+        if (clientDto == null) {
             return null;
         }
-        return new User(
-                userDto.getId(),
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getEmail(),
-                userDto.getPhoneNumber(),
-                userDto.getUsername(),
-                userDto.getPassword(),
-                userDto.getProperties()
+        return new Client(
+                clientDto.getId(),
+                clientDto.getFirstName(),
+                clientDto.getLastName(),
+                clientDto.getEmail(),
+                clientDto.getPhoneNumber(),
+                clientDto.getUsername(),
+                clientDto.getPassword()
         );
     }
 
@@ -54,11 +53,6 @@ public class DtoMapper {
         property.setBedrooms(propertyDto.getBedrooms());
         property.setBathrooms(propertyDto.getBathrooms());
         property.setYearBuilt(propertyDto.getYearBuilt());
-        property.setInvestments(propertyDto.getInvestments());
-        property.setRentalIncomes(propertyDto.getRentalIncomes());
-        property.setExpenses(propertyDto.getExpenses());
-        property.setSaleInformationList(propertyDto.getSaleInformationList());
-        property.setFinancialMetrics(propertyDto.getFinancialMetrics());
         return property;
     }
 
@@ -78,11 +72,6 @@ public class DtoMapper {
         propertyDto.setBedrooms(property.getBedrooms());
         propertyDto.setBathrooms(property.getBathrooms());
         propertyDto.setYearBuilt(property.getYearBuilt());
-        propertyDto.setInvestments(property.getInvestments());
-        propertyDto.setRentalIncomes(property.getRentalIncomes());
-        propertyDto.setExpenses(property.getExpenses());
-        propertyDto.setSaleInformationList(property.getSaleInformationList());
-        propertyDto.setFinancialMetrics(property.getFinancialMetrics());
         return propertyDto;
     }
 }

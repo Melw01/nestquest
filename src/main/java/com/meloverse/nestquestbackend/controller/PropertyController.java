@@ -43,7 +43,7 @@ public class PropertyController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         propertyService.delete(id);
         return ResponseEntity.ok(String.format("Property id %d deleted successfully", id));
     }

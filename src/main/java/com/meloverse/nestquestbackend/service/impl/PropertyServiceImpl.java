@@ -2,13 +2,10 @@ package com.meloverse.nestquestbackend.service.impl;
 
 import com.meloverse.nestquestbackend.dto.PropertyDto;
 import com.meloverse.nestquestbackend.entity.Property;
-import com.meloverse.nestquestbackend.entity.User;
 import com.meloverse.nestquestbackend.exception.ResourceNotFoundException;
 import com.meloverse.nestquestbackend.mapper.DtoMapper;
 import com.meloverse.nestquestbackend.repository.PropertyRepository;
-import com.meloverse.nestquestbackend.repository.UserRepository;
 import com.meloverse.nestquestbackend.service.PropertyService;
-import com.meloverse.nestquestbackend.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -51,17 +48,17 @@ public class PropertyServiceImpl implements PropertyService {
         property.setCity(updatedProperty.getCity());
         property.setState(updatedProperty.getState());
         property.setZipCode(updatedProperty.getZipCode());
-        property.setPurchasePrice(updatedProperty.getPurchasePrice());
-        property.setPropertyType(updatedProperty.getPropertyType());
-        property.setSquareFootage(updatedProperty.getSquareFootage());
-        property.setBedrooms(updatedProperty.getBedrooms());
-        property.setBathrooms(updatedProperty.getBathrooms());
-        property.setYearBuilt(updatedProperty.getYearBuilt());
-        property.setInvestments(updatedProperty.getInvestments());
-        property.setRentalIncomes(updatedProperty.getRentalIncomes());
-        property.setExpenses(updatedProperty.getExpenses());
-        property.setSaleInformationList(updatedProperty.getSaleInformationList());
-        property.setFinancialMetrics(updatedProperty.getFinancialMetrics());
+//        property.setPurchasePrice(updatedProperty.getPurchasePrice());
+//        property.setPropertyType(updatedProperty.getPropertyType());
+//        property.setSquareFootage(updatedProperty.getSquareFootage());
+//        property.setBedrooms(updatedProperty.getBedrooms());
+//        property.setBathrooms(updatedProperty.getBathrooms());
+//        property.setYearBuilt(updatedProperty.getYearBuilt());
+//        property.setInvestments(updatedProperty.getInvestments());
+//        property.setRentalIncomes(updatedProperty.getRentalIncomes());
+//        property.setExpenses(updatedProperty.getExpenses());
+//        property.setSaleInformationList(updatedProperty.getSaleInformationList());
+//        property.setFinancialMetrics(updatedProperty.getFinancialMetrics());
         return DtoMapper.mapToDto(repository.save(property));
     }
 

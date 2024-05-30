@@ -11,15 +11,26 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "property")
 public class Investment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "fk_client_id")
+    private Long clientId;
+
+    @Column(name = "fk_property_id")
+    private Long propertyId;
+
     private Float downPayment;
+
     private Float loanAmount;
+
     private Float interestRate;
+
     private Integer loanTermYears;
+
     private Date purchaseDate;
+
     private Float closingCost;
 }

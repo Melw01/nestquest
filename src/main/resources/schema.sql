@@ -1,16 +1,32 @@
-CREATE TABLE Users (
+CREATE DATABASE IF NOT EXISTS nestquest;
+
+USE nestquest;
+
+SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS property;
+DROP TABLE IF EXISTS investment;
+DROP TABLE IF EXISTS rental_income;
+DROP TABLE IF EXISTS expense;
+DROP TABLE IF EXISTS sale_information;
+DROP TABLE IF EXISTS financial_metrics;
+
+CREATE TABLE client (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    phone_number VARCHAR(9),
+    phone_number VARCHAR(20),
     username VARCHAR(50) UNIQUE,
     password VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Property (
+CREATE TABLE property (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT NOT NULL,
     address VARCHAR(255),
     city VARCHAR(100),
     state VARCHAR(50),
@@ -21,64 +37,76 @@ CREATE TABLE Property (
     bedrooms INT,
     bathrooms INT,
     year_built INT,
-    fk_user_id INT,
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE Investments (
+CREATE TABLE investment (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT,
     fk_property_id INT,
-    fk_user_id INT,
     down_payment DECIMAL(10, 2),
     loan_amount DECIMAL(10, 2),
     interest_rate DECIMAL(5, 2),
     loan_term_years INT,
     purchase_date DATE,
     closing_cost DECIMAL(10, 2),
-    FOREIGN KEY (fk_property_id) REFERENCES Property(id),
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_property_id) REFERENCES property(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE RentalIncome (
+CREATE TABLE rental_income (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT,
     fk_property_id INT,
-    fk_user_id INT,
     monthly_rent DECIMAL(10, 2),
     vacancy_rate DECIMAL(5, 2),
-    FOREIGN KEY (fk_property_id) REFERENCES Property(id),
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_property_id) REFERENCES property(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE Expense (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT,
     fk_property_id INT,
-    fk_user_id INT,
     expense_type VARCHAR(50),
     amount DECIMAL(10, 2),
     frequency VARCHAR(20),
     recurring BOOLEAN,
-    FOREIGN KEY (fk_property_id) REFERENCES Property(id),
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_property_id) REFERENCES property(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE SaleInformation (
+CREATE TABLE sale_information (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT,
     fk_property_id INT,
-    fk_user_id INT,
     sale_price DECIMAL(10, 2),
     sale_date DATE,
     selling_costs DECIMAL(10, 2),
-    FOREIGN KEY (fk_property_id) REFERENCES Property(id),
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_property_id) REFERENCES property(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE FinancialMetrics (
+
+CREATE TABLE financial_metrics (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    fk_client_id INT,
     fk_property_id INT,
-    fk_user_id INT,
     cash_flow DECIMAL(10, 2),
     cap_rate DECIMAL(5, 2),
     roi DECIMAL(5, 2),
-    FOREIGN KEY (fk_property_id) REFERENCES Property(id),
-    FOREIGN KEY (fk_user_id) REFERENCES Users(id)
-);
+    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_property_id) REFERENCES property(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (fk_client_id) REFERENCES client(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

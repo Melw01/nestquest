@@ -11,11 +11,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "rental_income")
 public class RentalIncome {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "fk_client_id")
+    private Long clientId;
+
+    @Column(name = "fk_property_id")
+    private Long propertyId;
+
     private Float monthlyRent;
+
     private Float vacancyRate;
 }
